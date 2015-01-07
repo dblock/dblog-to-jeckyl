@@ -53,7 +53,7 @@ Post.order('created ASC').each do |post|
   # cuts
   content.gsub! /\[cut\].*\[\/cut\]/, '<!-- more -->'
   # font size=1
-  content.gsub! /<font size="1">(.*)<\/font>/ do |match|
+  content.gsub! /<font .*>(.*)<\/font>/ do |match|
     Regexp.last_match.captures[0]
   end
 
@@ -67,6 +67,7 @@ title: "#{post.Title}"
 redirect_from: "/#{post.Slug.length == 0 ? post.Post_Id : post.Slug}"
 date: #{post.Created.strftime('%F %T')}
 tags: [#{post.topics.join(', ')}]
+comments: true
 ---
 #{content}
     EOS
